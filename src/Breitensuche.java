@@ -8,21 +8,21 @@ public class Breitensuche {
 		if(findeLoesung(list, ziel)){
 	
 		}else{
-			List<int[][]> neueListe = findeMoeglichkeiten(list, count);
+			List<int[][]> knoten = nachfolger(list, count);
 			System.out.println("");
-			for(int a = 0; a < neueListe.size(); a++){
-				for(int b = 0; b < neueListe.get(a).length; b++){
-					for(int c = 0; c < neueListe.get(a)[b].length; c++){
-						System.out.print(neueListe.get(a)[b][c]);							
+			for(int a = 0; a < knoten.size(); a++){
+				for(int b = 0; b < knoten.get(a).length; b++){
+					for(int c = 0; c < knoten.get(a)[b].length; c++){
+						System.out.print(knoten.get(a)[b][c]);							
 					}						
 				}System.out.print(" ");					
 			}
 			count += 1;
-			breitensuche(neueListe, ziel);
+			breitensuche(knoten, ziel);
 		}			
 	}	
 
-private static boolean findeLoesung(List<int[][]> list, int[][] ziel) {
+boolean findeLoesung(List<int[][]> list, int[][] ziel) {
 	int count = 0;
 	for(int a = 0; a < list.size(); a++){
 		for(int i = 0; i < list.get(a).length; i++){
@@ -40,28 +40,36 @@ private static boolean findeLoesung(List<int[][]> list, int[][] ziel) {
 				}System.out.print(" An der Stelle: ");
 				System.out.println(a);
 				return true;							
+			}else{			
+				System.out.println("");
+				System.out.println("Noch keine Lösung gefunden");
+				for(int i1 = 0; i1 < list.get(a).length; i1++){
+					for(int j = 0; j < list.get(a)[i1].length; j++){
+						System.out.print(list.get(a)[i1][j]);
+					}
+				}
 			}
 		}count = 0;			
 	}return false;							
 }
 
-private static List<int[][]> findeMoeglichkeiten(List<int[][]> list, int stelle) {
-	List<int[][]> neueListe = null;
-	for(int index = stelle; index < list.size(); index++){			
-		for(int i = 0; i < list.get(index).length; i++){
-			for(int j = 0; j < list.get(index).length; j++){
-				if(list.get(index)[i][j] == 0){
-					neueListe = verschieben(list.get(index), i, j);
+private List<int[][]> nachfolger(List<int[][]> knoten, int stelle) {
+	List<int[][]> neueKnoten = null;
+	for(int index = stelle; index < knoten.size(); index++){			
+		for(int i = 0; i < knoten.get(index).length; i++){
+			for(int j = 0; j < knoten.get(index).length; j++){
+				if(knoten.get(index)[i][j] == 0){
+					neueKnoten = verschieben(knoten.get(index), i, j);
 					System.out.print("neu");
-					list.addAll(neueListe);
-					return list;
+					knoten.addAll(neueKnoten);
+					return knoten;
 				}
 			}
 		}
-	}return list;			
+	}return knoten;			
 }
 
-private static List<int[][]> verschieben(int[][] ks, int i, int j) {
+List<int[][]> verschieben(int[][] ks, int i, int j) {
 	
 	int[][] neuerKnoten1 = new int[3][3];
 	int[][] neuerKnoten2 = new int[3][3];
