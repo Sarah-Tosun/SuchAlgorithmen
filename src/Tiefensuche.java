@@ -1,19 +1,33 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class Tiefensuche {
-	private Breitensuche loesungFinden = new Breitensuche();
-	public void tiefensuche(List<int[][]> knoten, int[][] ziel) {
+public class Tiefensuche implements Nachfolger{;
 
-		if(loesungFinden.findeLoesung(knoten, ziel)){
+	public boolean tiefensuche(List<int[][]> knoten, int[][] ziel) {
+
+		if(findeLoesung(knoten, ziel)){
+			return true;
 		}else{
 			List<int[][]> neueKnoten = nachfolger(knoten);
 			while(neueKnoten != null){
-				tiefensuche(erster(neueKnoten), ziel);
-
+				boolean ergebnis = tiefensuche(erster(neueKnoten), ziel);
+				if(ergebnis == true){
+					System.out.println("Lösung");
+				}else{
+					System.out.println("Noch keine Lösung");
+				}			
+				neueKnoten = rest(neueKnoten);
 			}
 		}
-		
+		return false;		
+	}
+
+	private List<int[][]> rest(List<int[][]> knotenListe) {
+		List<int[][]> neueKnoten = new ArrayList<>();
+		for(int i = 1; i < knotenListe.size(); i++){
+			neueKnoten.add(knotenListe.get(i));
+		}		
+		return neueKnoten;
 	}
 
 	private List<int[][]> erster(List<int[][]> knoten) {
@@ -27,7 +41,7 @@ public class Tiefensuche {
 			for(int i = 0; i < knoten.get(0).length; i++){
 				for(int j = 0; j < knoten.get(0).length; j++){
 					if(knoten.get(0)[i][j] == 0){
-						neueKnoten = loesungFinden.verschieben(knoten.get(0), i, j);
+						neueKnoten = verschieben(knoten.get(0), i, j);
 						System.out.print("neu");
 						return neueKnoten;
 					}

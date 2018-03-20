@@ -1,8 +1,8 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class IterativeDeepening {
-	private Breitensuche loesungFinden = new Breitensuche();
+public class IterativeDeepening implements Nachfolger{
+
 	int tiefenschranke = 0;
 	public void iterativeDeepening(List<int[][]> knoten, int[][] ziel) {
 		boolean ergebnis = false;
@@ -16,7 +16,7 @@ public class IterativeDeepening {
 	}
 	
 	public boolean tiefenSucheB(List<int[][]> knoten, int[][] ziel, int tiefe, int schranke) {
-		if(loesungFinden.findeLoesung(knoten, ziel)){
+		if(findeLoesung(knoten, ziel)){
 			return true;
 		}else{
 			List<int[][]> neueKnoten = nachfolger(knoten);
@@ -49,7 +49,7 @@ public class IterativeDeepening {
 			for(int i = 0; i < knoten.get(0).length; i++){
 				for(int j = 0; j < knoten.get(0).length; j++){
 					if(knoten.get(0)[i][j] == 0){
-						neueKnoten = loesungFinden.verschieben(knoten.get(0), i, j);
+						neueKnoten = verschieben(knoten.get(0), i, j);
 						System.out.print("neu");
 						return neueKnoten;
 					}
