@@ -3,52 +3,19 @@ import java.util.List;
 
 public interface Nachfolger {
 	
-	public default boolean findeLoesung(List<int[][]> list, int[][] ziel) {
-		int count = 0;
-		for(int a = 0; a < list.size(); a++){
-			for(int i = 0; i < list.get(a).length; i++){
-				for(int j = 0; j < list.get(a)[i].length; j++){
-					if(list.get(a)[i][j] == ziel[i][j]){
-						count += 1;
-					}				
-				}
-			}if(count == 9){
-				System.out.println("");
-				System.out.print("Lösung: ");
-				for(int i1 = 0; i1 < list.get(a).length; i1++){
-					for(int j = 0; j < list.get(a)[i1].length; j++){
-						System.out.print(list.get(a)[i1][j]);
-					}
-				}System.out.print(" An der Stelle: ");
-				System.out.println(a);
-				return true;							
-			}else{			
-				System.out.println("");
-				System.out.println("Noch keine Lösung gefunden");
-				for(int i1 = 0; i1 < list.get(a).length; i1++){
-					for(int j = 0; j < list.get(a)[i1].length; j++){
-						System.out.print(list.get(a)[i1][j]);
+	public default List<int[][]> getNachfolger(int[][] knoten) {
+		List<int[][]> neueKnoten = null;			
+			for(int i = 0; i < knoten.length; i++){
+				for(int j = 0; j < knoten.length; j++){
+					if(knoten[i][j] == 0){
+						neueKnoten = verschieben(knoten, i, j);
+						System.out.print(" ");
+						neueKnoten.add(knoten);
+						return neueKnoten;
 					}
 				}
 			}
-			count = 0;			
-		}return false;							
-	}
-		
-	public default List<int[][]> getNachfolger(List<int[][]> knoten, int stelle) {
-		List<int[][]> neueKnoten = null;
-		for(int index = stelle; index < knoten.size(); index++){			
-			for(int i = 0; i < knoten.get(index).length; i++){
-				for(int j = 0; j < knoten.get(index).length; j++){
-					if(knoten.get(index)[i][j] == 0){
-						neueKnoten = verschieben(knoten.get(index), i, j);
-						System.out.println("neu");
-						knoten.addAll(neueKnoten);
-						return knoten;
-					}
-				}
-			}
-		}return knoten;			
+		return neueKnoten;			
 	}
 
 
@@ -92,5 +59,32 @@ public interface Nachfolger {
 		}
 	return list;		
 	}	
+	
+	public default boolean zielErreicht(int[][] knoten, int[][] ziel) {
+		int count = 0;
+			for(int i = 0; i < knoten.length; i++){
+				for(int j = 0; j < knoten.length; j++){
+					if(knoten[i][j] == ziel[i][j]){
+						count += 1;
+					}				
+				}
+			}if(count == 9){
+				printKnoten(knoten);
+				return true;							
+			}else{	
+				printKnoten(knoten);
+				System.out.print("");
+				return false;
+			}							
+	}
+	
+	public default void printKnoten(int[][] knoten){
+		for(int i1 = 0; i1 < knoten.length; i1++){
+			for(int j = 0; j < knoten.length; j++){
+				System.out.print(knoten[i1][j]);
+			}
+		}
+	}
+
 
 }

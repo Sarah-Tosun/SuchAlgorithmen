@@ -2,32 +2,45 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class IterativeDeepening implements Nachfolger{
-
-	int tiefenschranke = 0;
-	public void iterativeDeepening(List<int[][]> knoten, int[][] ziel) {
-		boolean ergebnis = false;
-		while(ergebnis == false){
+	
+	private int count = 0;
+	private String ergebnis = "";
+	private int tiefenschranke;
+	
+	public String iterativeDeepening(int[][] knoten, int[][] ziel) {
+		tiefenschranke = 0;
+		ergebnis = " \"Keine Lösung\"";
+		while(ergebnis == " \"Keine Lösung\""){
 			ergebnis = tiefenSucheB(knoten, ziel, 0, tiefenschranke);
 			tiefenschranke += 1;
-			if(ergebnis == true){
-				ergebnis = true;
-			}
-		}
-	}
-	
-	public boolean tiefenSucheB(List<int[][]> knoten, int[][] ziel, int tiefe, int schranke) {
-		if(findeLoesung(knoten, ziel)){
-			return true;
-		}else{
-			List<int[][]> neueKnoten = nachfolger(knoten);
-			boolean ergebnis;
-			while(neueKnoten != null && tiefe < schranke){
-				ergebnis = tiefenSucheB(erster(neueKnoten), ziel, tiefe+1, schranke);				
-				neueKnoten = rest(neueKnoten);
+			if(ergebnis == " \"Lösung gefunden\""){
+				ergebnis = " \"Lösung gefunden\"";			
 				return ergebnis;
 			}
 		}
-		return false;
+		return ergebnis;
+	}
+	
+	public String tiefenSucheB(int[][] knoten, int[][] ziel, int tiefe, int schranke) {
+		count++;
+		List<int[][]> neueKnoten;
+		if(zielErreicht(knoten, ziel)){
+			ergebnis = " \"Lösung gefunden\"";			
+			return ergebnis;
+		}else{
+			neueKnoten = getNachfolger(knoten);
+		}
+		while(neueKnoten != null && tiefe < schranke){
+			System.out.println("");
+			System.out.println("Ebene: "+ count);
+			ergebnis = tiefenSucheB(erster(neueKnoten), ziel, tiefe++, schranke);				
+			if(ergebnis == " \"Lösung gefunden\""){
+				ergebnis = " \"Lösung gefunden\"";			
+				return ergebnis;
+			}		
+			neueKnoten = rest(neueKnoten);
+		}ergebnis = " \"Keine Lösung\"";					
+		return ergebnis;							
 	}
 
 	private List<int[][]> rest(List<int[][]> knotenListe) {
@@ -38,23 +51,8 @@ public class IterativeDeepening implements Nachfolger{
 		return neueKnoten;
 	}
 
-	private List<int[][]> erster(List<int[][]> knoten) {
-		List<int[][]> newKnoten = new ArrayList<>();
-		newKnoten.add(knoten.get(0));
-		return newKnoten;
+	private int[][] erster(List<int[][]> knoten) {
+		return knoten.get(0);
 	}
-
-	private List<int[][]> nachfolger(List<int[][]> knoten) {
-		List<int[][]> neueKnoten = null;		
-			for(int i = 0; i < knoten.get(0).length; i++){
-				for(int j = 0; j < knoten.get(0).length; j++){
-					if(knoten.get(0)[i][j] == 0){
-						neueKnoten = verschieben(knoten.get(0), i, j);
-						System.out.print("neu");
-						return neueKnoten;
-					}
-				}
-			}return neueKnoten;	
-		}
 
 }

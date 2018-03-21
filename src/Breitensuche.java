@@ -1,28 +1,40 @@
+import java.util.ArrayList;
 import java.util.List;
 
 public class Breitensuche implements Nachfolger{
-	private static int count = 0;
-	void breitensuche( List<int[][]> list, int[][] ziel) {
+	
+	private int count = 0;
+	private String ergebnis = "";
+	
+	public String breitensuche(List<int[][]> knotenListe, int[][] ziel) {
+		List<int[][]> neueKnoten = new ArrayList<>();
 
-		if(findeLoesung(list, ziel)){
-			System.out.println("Lösung gefunden");
-		}else{
-			List<int[][]> knoten = getNachfolger(list, count);
+		count ++;
+		
+		for(int[][] knoten : knotenListe){
+			if(zielErreicht(knoten, ziel)){
+				ergebnis = " \"Lösung gefunden\"";			
+				return ergebnis;
+			}else{
+				neueKnoten = Append(neueKnoten, getNachfolger(knoten));
+			}
+		}
+		if(neueKnoten != null){
 			System.out.println("");
-			printKnoten(knoten);
-			count += 1;
-			breitensuche(knoten, ziel);
-		}			
-	}	
-
-private void printKnoten(List<int[][]> knoten) {
-	for(int a = 0; a < knoten.size(); a++){
-		for(int b = 0; b < knoten.get(a).length; b++){
-			for(int c = 0; c < knoten.get(a)[b].length; c++){
-				System.out.print(knoten.get(a)[b][c]);							
-			}						
-		}System.out.print(" ");					
-	}		
-}
+			System.out.println("Ebene: "+ count);
+			breitensuche(neueKnoten, ziel);
+		}else{
+			ergebnis = " \"Keine Lösung\"";	
+			return ergebnis;	
+		}
+		return ergebnis;			
+	}
+	
+	private List<int[][]> Append(List<int[][]> neueKnoten2, List<int[][]> nachfolger) {
+		for(int[][] knoten : nachfolger){
+			neueKnoten2.add(knoten);
+		}return neueKnoten2;
+	}
+	
 
 }
