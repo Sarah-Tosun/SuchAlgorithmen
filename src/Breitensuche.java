@@ -8,7 +8,6 @@ public class Breitensuche implements Nachfolger{
 	
 	public String breitensuche(List<int[][]> knotenListe, int[][] ziel) {
 		List<int[][]> neueKnoten = new ArrayList<>();
-
 		count ++;
 		
 		for(int[][] knoten : knotenListe){
@@ -32,7 +31,7 @@ public class Breitensuche implements Nachfolger{
 	
 	private List<int[][]> Append(List<int[][]> neueKnoten2, List<int[][]> nachfolger) {
 		for(int[][] knoten : nachfolger){
-			neueKnoten2.add(knoten);
+			neueKnoten2.add(knoten);		
 		}return neueKnoten2;
 	}
 	

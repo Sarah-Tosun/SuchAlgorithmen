@@ -22,11 +22,15 @@ public class IterativeDeepening implements Nachfolger{
 	}
 	
 	public String tiefenSucheB(int[][] knoten, int[][] ziel, int tiefe, int schranke) {
-		count++;
 		List<int[][]> neueKnoten;
-		if(zielErreicht(knoten, ziel)){
-			ergebnis = " \"Lösung gefunden\"";			
-			return ergebnis;
+		if(schranke > 0){
+			count++;
+			if(zielErreicht(knoten, ziel)){
+				ergebnis = " \"Lösung gefunden\"";			
+				return ergebnis;
+			}else{
+				neueKnoten = getNachfolger(knoten);
+			}
 		}else{
 			neueKnoten = getNachfolger(knoten);
 		}

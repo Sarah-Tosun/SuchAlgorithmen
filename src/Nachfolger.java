@@ -10,7 +10,7 @@ public interface Nachfolger {
 					if(knoten[i][j] == 0){
 						neueKnoten = verschieben(knoten, i, j);
 						System.out.print(" ");
-						neueKnoten.add(knoten);
+//						neueKnoten.add(knoten);
 						return neueKnoten;
 					}
 				}
@@ -78,7 +78,7 @@ public interface Nachfolger {
 			}							
 	}
 	
-	public default void printKnoten(int[][] knoten){
+	public static void printKnoten(int[][] knoten){
 		for(int i1 = 0; i1 < knoten.length; i1++){
 			for(int j = 0; j < knoten.length; j++){
 				System.out.print(knoten[i1][j]);
