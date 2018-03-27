@@ -17,17 +17,24 @@ public class Main {
 		
 		int[][] ziel = {{1,2,3}, {4,5,6}, {7,8,0}};
 		
+		System.out.println("Breitensuche");
+		System.out.println(" ");
 		Breitensuche breitenSuche = new Breitensuche();
 		ergebnis = breitenSuche.breitensuche(list, ziel);
 		System.out.println(ergebnis);
-//		
+		System.out.println("-----------------------------------------------------------------------------------");
+		
+//		System.out.println("Tiefensuche");
 //		Tiefensuche tiefenSuche = new Tiefensuche();
 //		ergebnis = tiefenSuche.tiefensuche(start, ziel);
 //		System.out.println(ergebnis);
-//		
-//		IterativeDeepening iterativeDeepening = new IterativeDeepening();
-//		ergebnis = iterativeDeepening.iterativeDeepening(start, ziel);
-//		System.out.println(ergebnis);
+
+		System.out.println(" ");
+		System.out.println("Iterative Deepening");
+		System.out.println(" ");
+		IterativeDeepening iterativeDeepening = new IterativeDeepening();
+		ergebnis = iterativeDeepening.iterativeDeepening(start, ziel);
+		System.out.println(ergebnis);
 	}
 	
 }

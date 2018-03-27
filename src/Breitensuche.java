@@ -1,15 +1,18 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class Breitensuche implements Nachfolger{
+/** 
+ * Algorithmus: Breitensuche 8-Puzzle
+ * Autor: Sarah Tosun
+ * */
+public class Breitensuche implements Hilfsfunktionen{
 	
 	private int count = 0;
 	private String ergebnis = "";
-	
+
 	public String breitensuche(List<int[][]> knotenListe, int[][] ziel) {
 		List<int[][]> neueKnoten = new ArrayList<>();
-		count ++;
-		
+		count ++;		
 		for(int[][] knoten : knotenListe){
 			if(zielErreicht(knoten, ziel)){
 				ergebnis = " \"Lösung gefunden\"";			
@@ -35,5 +38,4 @@ public class Breitensuche implements Nachfolger{
 		}return neueKnoten2;
 	}
 	
-
 }

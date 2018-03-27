@@ -1,9 +1,11 @@
-import java.util.ArrayList;
 import java.util.List;
-
-public class IterativeDeepening implements Nachfolger{
+/** 
+ * Algorithmus: Iterative Deepening 8-Puzzle
+ * Autor: Sarah Tosun
+ * */
+public class IterativeDeepening implements Hilfsfunktionen{
 	
-	private int count = 0;
+	private int count;
 	private String ergebnis = "";
 	private int tiefenschranke;
 	
@@ -11,52 +13,45 @@ public class IterativeDeepening implements Nachfolger{
 		tiefenschranke = 0;
 		ergebnis = " \"Keine Lösung\"";
 		while(ergebnis == " \"Keine Lösung\""){
-			ergebnis = tiefenSucheB(knoten, ziel, 0, tiefenschranke);
-			tiefenschranke += 1;
 			if(ergebnis == " \"Lösung gefunden\""){
 				ergebnis = " \"Lösung gefunden\"";			
 				return ergebnis;
+			}else if(tiefenschranke == 0){
+				System.out.println("Tiefe:" +0);
+			}else{
+				System.out.println(" ");
+				System.out.println("---------------------------------------------");
+				System.out.println("Tiefe:" +tiefenschranke);
 			}
+			ergebnis = tiefenSucheB(knoten, ziel, 0, tiefenschranke);
+			tiefenschranke += 1;
+			count = 0;
 		}
 		return ergebnis;
 	}
 	
 	public String tiefenSucheB(int[][] knoten, int[][] ziel, int tiefe, int schranke) {
 		List<int[][]> neueKnoten;
-		if(schranke > 0){
-			count++;
-			if(zielErreicht(knoten, ziel)){
-				ergebnis = " \"Lösung gefunden\"";			
-				return ergebnis;
-			}else{
-				neueKnoten = getNachfolger(knoten);
-			}
-		}else{
-			neueKnoten = getNachfolger(knoten);
-		}
-		while(neueKnoten != null && tiefe < schranke){
-			System.out.println("");
+		count++;
+		if(zielErreicht(knoten, ziel)){
+			ergebnis = " \"Lösung gefunden\"";			
+			return ergebnis;
+		}neueKnoten = getNachfolger(knoten);
+		while(!neueKnoten.isEmpty() && tiefe < schranke){
+			System.out.println(" ");
 			System.out.println("Ebene: "+ count);
-			ergebnis = tiefenSucheB(erster(neueKnoten), ziel, tiefe++, schranke);				
+			ergebnis = tiefenSucheB(Hilfsfunktionen.erster(neueKnoten), ziel, tiefe + 1, schranke);				
 			if(ergebnis == " \"Lösung gefunden\""){
 				ergebnis = " \"Lösung gefunden\"";			
 				return ergebnis;
-			}		
-			neueKnoten = rest(neueKnoten);
-		}ergebnis = " \"Keine Lösung\"";					
+			}
+			neueKnoten = Hilfsfunktionen.rest(neueKnoten);	
+			System.out.print("Rest: ");
+			Hilfsfunktionen.printKnoteAusListe(neueKnoten);
+		}
+		count-= 1;
+		ergebnis = " \"Keine Lösung\"";
 		return ergebnis;							
-	}
-
-	private List<int[][]> rest(List<int[][]> knotenListe) {
-		List<int[][]> neueKnoten = new ArrayList<>();
-		for(int i = 1; i < knotenListe.size(); i++){
-			neueKnoten.add(knotenListe.get(i));
-		}		
-		return neueKnoten;
-	}
-
-	private int[][] erster(List<int[][]> knoten) {
-		return knoten.get(0);
 	}
 
 }
