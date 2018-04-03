@@ -86,7 +86,7 @@ public interface Hilfsfunktionen {
 	}
 	
 	// Ausgabe Knoten
-	public static void printKnoten(int[][] knoten){
+	public default void printKnoten(int[][] knoten){
 		for(int i1 = 0; i1 < knoten.length; i1++){
 			for(int j = 0; j < knoten.length; j++){
 				System.out.print(knoten[i1][j]);
@@ -94,15 +94,15 @@ public interface Hilfsfunktionen {
 		}
 	}
 	
-	public static void printKnoteAusListe(List<int[][]> neueKnoten) {
+	public default void printKnoteAusListe(List<int[][]> neueKnoten) {
 		for(int[][] knoten : neueKnoten){
-			Hilfsfunktionen.printKnoten(knoten);
+			printKnoten(knoten);
 			System.out.print(" ");
 		}		
 	}
 	
 	//Liefert den Rest der Knoten, auﬂer den ersten
-	public static List<int[][]> rest(List<int[][]> knotenListe) {
+	public default List<int[][]> rest(List<int[][]> knotenListe) {
 		List<int[][]> neueKnoten = new ArrayList<>();
 		for(int i = 1; i < knotenListe.size(); i++){
 			neueKnoten.add(knotenListe.get(i));
@@ -111,8 +111,13 @@ public interface Hilfsfunktionen {
 	}
 
 	//Liefert den ersten Knoten
-	public static int[][] erster(List<int[][]> knoten) {
+	public default int[][] erster(List<int[][]> knoten) {
 		return knoten.get(0);
+	}
+	
+	public default int getEbene(){
+		int ebene = 0;
+		return ebene++;
 	}
 
 }

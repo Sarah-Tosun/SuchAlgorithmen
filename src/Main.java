@@ -9,8 +9,8 @@ public class Main {
 		List<int[][]> list = new ArrayList<>();
 		
 //		int[][] start = {{2,5,0}, {1,4,8}, {7,3,6}};
-		int[][] start = {{1,2,3}, {4,0,5}, {7,8,6}};
-//		int[][] start = {{1,0,3}, {4,2,5}, {7,8,6}};
+//		int[][] start = {{1,2,3}, {4,0,5}, {7,8,6}};
+		int[][] start = {{1,0,3}, {4,2,6}, {7,5,8}};
 		//für Tiefensuche
 //		int[][] start = {{1,2,3}, {4,5,0}, {7,8,6}};
 		list.add(start);
@@ -34,6 +34,14 @@ public class Main {
 		System.out.println(" ");
 		IterativeDeepening iterativeDeepening = new IterativeDeepening();
 		ergebnis = iterativeDeepening.iterativeDeepening(start, ziel);
+		System.out.println(ergebnis);
+		
+		System.out.println(" ");
+		System.out.println("HeuristischeSuche");
+		System.out.println(" ");
+		HeuristikKnoten knoten = new HeuristikKnoten(start);
+		HeuristischeSuche heuristischeSuche = new HeuristischeSuche();
+		ergebnis = heuristischeSuche.heuristischeSuche(knoten, ziel);
 		System.out.println(ergebnis);
 	}
 	

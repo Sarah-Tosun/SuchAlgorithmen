@@ -40,14 +40,14 @@ public class IterativeDeepening implements Hilfsfunktionen{
 		while(!neueKnoten.isEmpty() && tiefe < schranke){
 			System.out.println(" ");
 			System.out.println("Ebene: "+ count);
-			ergebnis = tiefenSucheB(Hilfsfunktionen.erster(neueKnoten), ziel, tiefe + 1, schranke);				
+			ergebnis = tiefenSucheB(erster(neueKnoten), ziel, tiefe + 1, schranke);				
 			if(ergebnis == " \"Lösung gefunden\""){
 				ergebnis = " \"Lösung gefunden\"";			
 				return ergebnis;
 			}
-			neueKnoten = Hilfsfunktionen.rest(neueKnoten);	
+			neueKnoten = rest(neueKnoten);	
 			System.out.print("Rest: ");
-			Hilfsfunktionen.printKnoteAusListe(neueKnoten);
+			printKnoteAusListe(neueKnoten);
 		}
 		count-= 1;
 		ergebnis = " \"Keine Lösung\"";

@@ -17,17 +17,17 @@ public class Tiefensuche implements Hilfsfunktionen{
 		}else{
 			neueKnoten = getNachfolger(knoten);	
 			System.out.println(" ");
-			Hilfsfunktionen.printKnoteAusListe(neueKnoten);
+			printKnoteAusListe(neueKnoten);
 		}
 		while(neueKnoten != null){
 			System.out.println("");
 			System.out.println("Ebene: "+ count);
-			String ergebnis = tiefensuche(Hilfsfunktionen.erster(neueKnoten), ziel);
+			String ergebnis = tiefensuche(erster(neueKnoten), ziel);
 			if(ergebnis == " \"Lösung gefunden\""){
 				ergebnis = " \"Lösung gefunden\"";			
 				return ergebnis;
 			}		
-			neueKnoten = Hilfsfunktionen.rest(neueKnoten);
+			neueKnoten = rest(neueKnoten);
 		}ergebnis = " \"Keine Lösung\"";					
 		return ergebnis;		
 	}
