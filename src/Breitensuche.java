@@ -10,7 +10,7 @@ public class Breitensuche implements Hilfsfunktionen{
 	private int count = 0;
 	private String ergebnis = "";
 
-	public String breitensuche(List<int[][]> knotenListe, int[][] ziel) {
+	public String breitensuche(List<int[][]> knotenListe, int[][] ziel) throws InterruptedException {
 		List<int[][]> neueKnoten = new ArrayList<>();
 		count ++;		
 		for(int[][] knoten : knotenListe){

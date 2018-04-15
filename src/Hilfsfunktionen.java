@@ -68,7 +68,7 @@ public interface Hilfsfunktionen {
 	}	
 	
 	// Prüfen ob der aktuelle Knoten gleich dem Zielknoten ist
-	public default boolean zielErreicht(int[][] knoten, int[][] ziel) {
+	public default boolean zielErreicht(int[][] knoten, int[][] ziel) throws InterruptedException {
 		int count = 0;
 			for(int i = 0; i < knoten.length; i++){
 				for(int j = 0; j < knoten.length; j++){
@@ -78,8 +78,10 @@ public interface Hilfsfunktionen {
 				}
 			}if(count == 9){
 				printKnoten(knoten);
+				System.out.print(" ");
 				return true;							
 			}else{	
+				Thread.sleep(100);
 				printKnoten(knoten);
 				return false;
 			}							
@@ -93,31 +95,26 @@ public interface Hilfsfunktionen {
 			}
 		}
 	}
-	
-	public default void printKnoteAusListe(List<int[][]> neueKnoten) {
+
+	public default void printKnoteAusListeTiefe(List<int[][]> neueKnoten) {
 		for(int[][] knoten : neueKnoten){
 			printKnoten(knoten);
 			System.out.print(" ");
 		}		
 	}
 	
-	//Liefert den Rest der Knoten, außer den ersten
-	public default List<int[][]> rest(List<int[][]> knotenListe) {
-		List<int[][]> neueKnoten = new ArrayList<>();
-		for(int i = 1; i < knotenListe.size(); i++){
-			neueKnoten.add(knotenListe.get(i));
-		}		
-		return neueKnoten;
+	public default List<int[][]> restTiefe(List<int[][]> knotenListe) {
+		knotenListe.remove(0);		
+		return knotenListe;
 	}
-
-	//Liefert den ersten Knoten
-	public default int[][] erster(List<int[][]> knoten) {
+	
+	public default int[][] ersterTiefe(List<int[][]> knoten) {
 		return knoten.get(0);
 	}
 	
-	public default int getEbene(){
-		int ebene = 0;
-		return ebene++;
-	}
+//	public default int getEbene(){
+//		int ebene = 0;
+//		return ebene++;
+//	}
 
 }

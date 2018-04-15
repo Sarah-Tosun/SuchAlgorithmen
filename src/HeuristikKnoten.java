@@ -5,17 +5,35 @@ public class HeuristikKnoten implements Comparable<HeuristikKnoten> {
 	public int compareTo(HeuristikKnoten a) {
     	int eins = this.getBewertung()[2];
     	int zwei = a.getBewertung()[2];
-    	return eins < zwei ? -1: eins == zwei ? 0: 1 ;
+    	int eins_ = this.getBewertung()[1];
+    	int zwei_ = a.getBewertung()[1];
+    	if(eins < zwei){
+    		//aufsteigend
+    		return -1;	  		
+    	}else if(eins == zwei && eins_ == zwei_){
+    		return 0;
+    	}else{
+    		return 1;
+    	}
     }
     
-	private int[][] knoten;
+	private int[][] knoten = new int[3][3];
 	private int[] bewertung = new int[3];
+	private HeuristikKnoten parent;
+	
+	public HeuristikKnoten(){
+	}
 
-	public HeuristikKnoten(int[][] knoten){
+	public HeuristikKnoten(int[][] knoten, HeuristikKnoten parent){
+		this.parent = parent;
 		this.knoten = knoten;
 		this.bewertung = new int[3];
 	}
 	
+	public HeuristikKnoten getParent(){
+		return parent;
+	}
+
 	public int[] getBewertung(){
 		return bewertung;
 	}
@@ -29,6 +47,7 @@ public class HeuristikKnoten implements Comparable<HeuristikKnoten> {
 	}
 
 	public int[] bewertungBerechnen(int[][] knoten2, int[][] ziel, int ebene) {
+		bewertung[0] = 0;
 		int g = ebene;
 		int h = 0;
 		int f;
@@ -37,9 +56,6 @@ public class HeuristikKnoten implements Comparable<HeuristikKnoten> {
 			for(int j = 0; j < knoten.length; j++){
 				if(knoten[i][j] != ziel[i][j]){
 					h++;
-					if(knoten[i][j] == 0){
-						h--;
-					}
 				}
 			}
 		}

@@ -1,18 +1,23 @@
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+
+import com.sun.org.apache.xerces.internal.util.SynchronizedSymbolTable;
 
 public class HeuristischeSuche implements Hilfsfunktionen{
 	
 	private String ergebnis;
 	private int[][] ziel;
 
-	public String heuristischeSuche(HeuristikKnoten start, int[][] ziel) {
+	public String heuristischeSuche(HeuristikKnoten start, int[][] ziel) throws InterruptedException {
 		this.ziel = ziel;
 		List<HeuristikKnoten> knotenListe = new ArrayList<HeuristikKnoten>();
 		knotenListe.add(start);
 		knotenListe.get(0).bewertungBerechnen(start.getKnoten(), ziel, 0);
 		int level = 0;
+		System.out.println("Suche läuft, bitte warten");
 		while(true){
 			if(knotenListe.isEmpty()){
 				ergebnis = " \"Keine Lösung\"";
@@ -20,18 +25,16 @@ public class HeuristischeSuche implements Hilfsfunktionen{
 			}
 			HeuristikKnoten knoten = knotenListe.get(0);
 			knotenListe = restHeuristik(knotenListe);
-			if(zielErreichtHeuristik(knoten, ziel)){
-				ergebnis = " \"Lösung gefunden\"";			
+			if(zielErreichtHeuristik(knoten, ziel) == true){
+				ergebnis = " \"Lösung gefunden\"";	
 				return ergebnis;
 			}
-			System.out.println(" ");
-
-			level = level+1;
-			knotenListe = einsortieren(getNachfolger(knoten.getKnoten()), knotenListe, level);
+			level = knoten.getBewertung()[0];
+			knotenListe = einsortieren(getNachfolger(knoten.getKnoten()), knotenListe, level, knoten);
 		}	
 	}
 
-	private boolean zielErreichtHeuristik(HeuristikKnoten knoten, int[][] ziel2) {
+	private boolean zielErreichtHeuristik(HeuristikKnoten knoten, int[][] ziel2) throws InterruptedException {
 		int count = 0;
 		for(int i = 0; i < knoten.getKnoten().length; i++){
 			for(int j = 0; j < knoten.getKnoten().length; j++){
@@ -44,41 +47,58 @@ public class HeuristischeSuche implements Hilfsfunktionen{
 			System.out.print(" "+knoten.getBewertung()[0]);
 			System.out.print(" "+knoten.getBewertung()[1]);
 			System.out.print(" "+knoten.getBewertung()[2]);
-			return true;							
-		}else{	
+			System.out.println("");
 			printKnoten(knoten.getKnoten());
 			System.out.print(" "+knoten.getBewertung()[0]);
 			System.out.print(" "+knoten.getBewertung()[1]);
 			System.out.print(" "+knoten.getBewertung()[2]);
+			System.out.println("");
+			while(knoten.getParent() != null){
+				printKnoten(knoten.getParent().getKnoten());
+				System.out.print(" "+knoten.getParent().getBewertung()[0]);
+				System.out.print(" "+knoten.getParent().getBewertung()[1]);
+				System.out.print(" "+knoten.getParent().getBewertung()[2]);
+				knoten = knoten.getParent();
+				System.out.println("");
+			}
+			return true;			
+		}else{
+//			Thread.sleep(100);
+//			System.out.println("Suche läuft, bitte warten");
 			return false;
 		}
 	}
 
-	private List<HeuristikKnoten> restHeuristik(List<HeuristikKnoten> knotenListe) {
-		List<HeuristikKnoten> neueKnoten = new ArrayList<>();
-		for(int i = 1; i < knotenListe.size(); i++){
-			neueKnoten.add(knotenListe.get(i));
-		}		
-		return neueKnoten;
+	private List<HeuristikKnoten> restHeuristik(List<HeuristikKnoten> knotenListe) {		
+		knotenListe.remove(0);
+		return knotenListe;
 	}
 
-	private List<HeuristikKnoten> einsortieren(List<int[][]> nachfolger, List<HeuristikKnoten> knotenListe, int ebene) {
-		List<HeuristikKnoten> heuristikKnotenListe = new ArrayList<>();
+	private List<HeuristikKnoten> einsortieren(List<int[][]> nachfolger, List<HeuristikKnoten> knotenListe, int ebene, HeuristikKnoten parent) {
+
 		HeuristikKnoten heuristikKnoten;
-		int count = 0;
-
+//		int count = 0;
 		for(int[][] knoten : nachfolger){
-			heuristikKnoten = new HeuristikKnoten(nachfolger.get(count));
-			heuristikKnoten.bewertungBerechnen(knoten, ziel, ebene);
-			heuristikKnotenListe.add(heuristikKnoten);
-			count++;
-		}
-
-		for(HeuristikKnoten knoten : heuristikKnotenListe){		
-			knotenListe.add(knoten);
+			heuristikKnoten = new HeuristikKnoten(knoten, parent);	
+			heuristikKnoten.bewertungBerechnen(knoten, ziel, ebene+1);
+			knotenListe.add(heuristikKnoten);
+			if(zyklenchen(heuristikKnoten, heuristikKnoten.getBewertung()[0])){
+				knotenListe.remove(heuristikKnoten);
+			}
+//			count++;
 		}
 		Collections.sort(knotenListe);
 		return knotenListe;
+	}
+
+	//Vgl aktueller Knoten mit Vorvorgänger, Zyklen der Länge 2 vermeiden
+	private boolean zyklenchen(HeuristikKnoten heuristikKnoten, int ebene) {
+		if(ebene > 1){ //erst auf Ebene 2 davor kein Parent
+			if(Arrays.deepEquals(heuristikKnoten.getKnoten(), heuristikKnoten.getParent().getParent().getKnoten())){
+				return true;
+			}
+		}		
+		return false;
 	}
 
 }
