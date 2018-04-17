@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 /** 
  * Algorithmus: Iterative Deepening 8-Puzzle

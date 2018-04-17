@@ -1,11 +1,12 @@
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-
-import com.sun.org.apache.xerces.internal.util.SynchronizedSymbolTable;
-
+/** 
+ * Algorithmus: Heuristische Suche A* 8-Puzzle
+ * Anzahl der falschen Plättchen
+ * Autor: Sarah Tosun
+ * */
 public class HeuristischeSuche implements Hilfsfunktionen{
 	
 	private String ergebnis;
@@ -75,17 +76,14 @@ public class HeuristischeSuche implements Hilfsfunktionen{
 	}
 
 	private List<HeuristikKnoten> einsortieren(List<int[][]> nachfolger, List<HeuristikKnoten> knotenListe, int ebene, HeuristikKnoten parent) {
-
 		HeuristikKnoten heuristikKnoten;
-//		int count = 0;
 		for(int[][] knoten : nachfolger){
 			heuristikKnoten = new HeuristikKnoten(knoten, parent);	
 			heuristikKnoten.bewertungBerechnen(knoten, ziel, ebene+1);
 			knotenListe.add(heuristikKnoten);
-			if(zyklenchen(heuristikKnoten, heuristikKnoten.getBewertung()[0])){
+			if(zyklenchen(heuristikKnoten, heuristikKnoten.getBewertung()[0]) == true){
 				knotenListe.remove(heuristikKnoten);
 			}
-//			count++;
 		}
 		Collections.sort(knotenListe);
 		return knotenListe;

@@ -13,6 +13,7 @@ public class HeuristikKnoten implements Comparable<HeuristikKnoten> {
     	}else if(eins == zwei && eins_ == zwei_){
     		return 0;
     	}else{
+    		//1 wäre absteigend
     		return 1;
     	}
     }
