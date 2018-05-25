@@ -17,11 +17,11 @@ public class Main {
 //		
 //		int[][] ziel = {{1,2,3}, {4,5,6}, {7,8,0}};
 //		
-		double[][] menge1 = {{0,1.8}, {2,0.6}};
-		double[][] menge2 = {{-1.2,1.4}, {0.4,-1}};
-	
-//		double[][] menge1 = {{6,1,0}, {7,3,0}, {8,2,0}, {9,0,0}, {8,4,1}, {8,6,1}, {9,2,1}, {9,5,1}};
-//		double[][] menge2 = {};
+//		double[][] menge1 = {{0,1.8}, {2,0.6}};
+//		double[][] menge2 = {{-1.2,1.4}, {0.4,-1}};
+//	
+		double[][] menge1 = {{6,1,0}, {7,3,0}, {8,2,0}, {9,0,0}};
+		double[][] menge2 = {{8,4,1}, {8,6,1}, {9,2,1}, {9,5,1}};
 		
 //		System.out.println("Breitensuche");
 //		Breitensuche breitenSuche = new Breitensuche();

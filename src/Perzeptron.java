@@ -5,16 +5,17 @@ public class Perzeptron {
 		// TODO Auto-generated constructor stub
 	}
 
-	public void perzeptronLernregel(double[][] menge1, double[][] menge2) {
+	public void perzeptronLernregel(double[][] menge1, double[][] menge2) throws InterruptedException {
 		// w beliebiger Vektor reeller Zahlen
 		double[] w = {1,1};
 		//alle x korrekt klassifiziert
-
+		int count = 0;
 		boolean abbruch = false;
-		while(abbruch == false){
+		while(true){
+
 			double vekortWXMenge1 = 0;
 			double vekortWXMenge2 = 0;
-			
+
 			for(double[]x : menge1){				
 				double vekortWX1 = (w[0]*x[0])+(w[1]*x[1]);
 				// für abbruchsbedingung
@@ -27,10 +28,14 @@ public class Perzeptron {
 					
 					w[1] = w[1]+x[1];
 					w[1] = Math.round(100.0 * w[1]) / 100.0;
-					
-					System.out.println("Menge+: "+ w[0] +", "+ w[1]);
+					count++;
+					System.out.println("Step"+count+ "w+: "+ w[0] +", "+ w[1]);
+
 				}
+
 			}
+			
+			
 			for(double[]x : menge2){				
 				double vekortWX2 = (w[0]*x[0])+(w[1]*x[1]);
 				// für abbruchsbedingung
@@ -42,13 +47,19 @@ public class Perzeptron {
 					
 					w[1] = w[1]-x[1];
 					w[1] = Math.round(100.0 * w[1]) / 100.0;
-					
-					System.out.println("Menge-: "+ w[0] +", "+ w[1]);
+					count++;
+					System.out.println("Step"+count+ "w+: "+ w[0] +", "+ w[1]);
 				}
 			}
-			if((vekortWXMenge1 > 0) && (vekortWXMenge2 <= 0)){
-				abbruch = true;
+//			if((vekortWXMenge1 > 0) && (vekortWXMenge2 <= 0)){
+//				abbruch = true;
+//			}
+			
+			if(count == 444){
+				break;
 			}
+			
+//			Thread.sleep(100);
 				
 		}
 		
