@@ -1,9 +1,15 @@
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.StringTokenizer;
 
 public class Main {
 	
-	public static void main(String [] args) throws InterruptedException
+	public static void main(String [] args) throws InterruptedException, IOException
 	{	
 //		String ergebnis;
 //		List<int[][]> list = new ArrayList<>();
@@ -19,7 +25,7 @@ public class Main {
 //		
 //		double[][] menge1 = {{0,1.8}, {2,0.6}};
 //		double[][] menge2 = {{-1.2,1.4}, {0.4,-1}};
-//	
+
 		double[][] menge1 = {{6,1,0}, {7,3,0}, {8,2,0}, {9,0,0}};
 		double[][] menge2 = {{8,4,1}, {8,6,1}, {9,2,1}, {9,5,1}};
 		
@@ -52,6 +58,29 @@ public class Main {
 		
 		Perzeptron perzeptron = new Perzeptron();
 		perzeptron.perzeptronLernregel(menge1, menge2);
+		
+//		FileReader fr = null;
+//		StringBuffer sb = null;
+//		try
+//		{
+//		   String fileName="app1_data.data";
+//		   fr = new FileReader(fileName);
+//		   sb = new StringBuffer();
+//		   ArrayList<Double> lines = new ArrayList<Double>();
+//		   int ch;
+//		   while( (ch = fr.read()) != -1 )
+//		      sb.append((char)ch);
+//		      System.out.println(sb.toString());
+//		}catch(FileNotFoundException ex){			
+//		}finally{			
+//		}
+//		
+//		String s = sb.toString();
+//		System.out.println(s.charAt(0));
+//		double[] newPoint = {0.0};
+//		KNearestNeighbour kNN = new KNearestNeighbour();
+//		kNN.kNearestNeighbour(menge1, newPoint);
+//		
 	}
 	
 }
