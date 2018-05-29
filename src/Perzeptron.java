@@ -1,9 +1,6 @@
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class Perzeptron {
 
@@ -13,12 +10,12 @@ public class Perzeptron {
 
 	public void perzeptronLernregel(double[][] menge1, double[][] menge2) throws InterruptedException {
 		// w beliebiger Vektor reeller Zahlen
-		double[] w = {1,1};
+		double[] w = {1,1,1};
 		//alle x korrekt klassifiziert
 		int count = 0;
 		//Für Abbruch ArrayList mit den aktuellen Werten
-		List mapPlus;
-		List mapMinus;
+		List<Double> mapPlus;
+		List<Double> mapMinus;
 		while(true){
 
 			double vekortWXMenge1 = 0;
@@ -27,7 +24,8 @@ public class Perzeptron {
 			mapMinus = new ArrayList<>();
 			
 			for(double[]x : menge1){				
-				double vekortWX1 = (w[0]*x[0])+(w[1]*x[1]);
+//				double vekortWX1 = (w[0]*x[0])+(w[1]*x[1]);
+				double vekortWX1 = (w[0]*x[0])+(w[1]*x[1])+(w[2]*1);
 				// für abbruchsbedingung
 				vekortWXMenge1 = vekortWX1;
 				mapPlus.add(vekortWXMenge1);
@@ -39,13 +37,17 @@ public class Perzeptron {
 					
 					w[1] = w[1]+x[1];
 					w[1] = Math.round(100.0 * w[1]) / 100.0;
+					
+					w[2] = w[2]+1;
+					w[2] = Math.round(100.0 * w[2]) / 100.0;
 					count++;
-					System.out.println("Step"+count+ "w+: "+ w[0] +", "+ w[1]);
+					System.out.println(" Step"+count+ "w+: "+ w[0] +", "+ w[1]+", "+ w[2]);
 				}
 			}			
 			
 			for(double[]x : menge2){				
-				double vekortWX2 = (w[0]*x[0])+(w[1]*x[1]);
+//				double vekortWX2 = (w[0]*x[0])+(w[1]*x[1]);
+				double vekortWX2 = (w[0]*x[0])+(w[1]*x[1])+(w[2]*1);
 				// für abbruchsbedingung
 				vekortWXMenge2 = vekortWX2;
 				mapMinus.add(vekortWXMenge2);
@@ -56,8 +58,12 @@ public class Perzeptron {
 					
 					w[1] = w[1]-x[1];
 					w[1] = Math.round(100.0 * w[1]) / 100.0;
+					
+					w[2] = w[2]-1;
+					w[2] = Math.round(100.0 * w[2]) / 100.0;
 					count++;
-					System.out.println("Step"+count+ "w+: "+ w[0] +", "+ w[1]);
+					System.out.println(" Step"+count+ "w+: "+ w[0] +", "+ w[1]+", "+ w[2]);
+
 				}
 			}
 			
@@ -88,6 +94,17 @@ public class Perzeptron {
 			
 			if(allPlus == true && allMinus == true){
 				//Alle richtig klassifiziert
+				for(Double m : mapPlus){
+					System.out.print("Alle richtig poisitv: "+m);
+					System.out.println("");
+				}
+				for(Double m : mapMinus){
+					m = Math.round(100.0 * m) / 100.0;
+					System.out.print("Alle richtig negativ: "+m);
+					System.out.println("");
+				}
+				System.out.println("ENDE__________________________________________");
+				System.out.println("");
 				break;
 			}
 			

@@ -23,11 +23,14 @@ public class Main {
 //		
 //		int[][] ziel = {{1,2,3}, {4,5,6}, {7,8,0}};
 //		
-//		double[][] menge1 = {{0,1.8}, {2,0.6}};
-//		double[][] menge2 = {{-1.2,1.4}, {0.4,-1}};
+//		double[][] menge1Test = {{0,1.8}, {2,0.6}};
+//		double[][] menge2Test = {{-1.2,1.4}, {0.4,-1}};
 
-		double[][] menge1 = {{6,1,0}, {7,3,0}, {8,2,0}, {9,0,0}};
-		double[][] menge2 = {{8,4,1}, {8,6,1}, {9,2,1}, {9,5,1}};
+//		double[][] menge1 = {{6,1,1}, {7,3,1}, {8,2,1}, {9,0,1}};
+//		double[][] menge2 = {{8,4,1}, {8,6,1}, {9,2,1}, {9,5,1}};
+		
+		double[][] menge1 = {{6,1}, {7,3}, {8,2}, {9,0}};
+		double[][] menge2 = {{8,4}, {8,6}, {9,2}, {9,5}};
 		
 //		System.out.println("Breitensuche");
 //		Breitensuche breitenSuche = new Breitensuche();
@@ -58,6 +61,7 @@ public class Main {
 		
 		Perzeptron perzeptron = new Perzeptron();
 		perzeptron.perzeptronLernregel(menge1, menge2);
+//		perzeptron.perzeptronLernregel(menge1Test, menge2Test);
 		
 //		FileReader fr = null;
 //		StringBuffer sb = null;
@@ -77,9 +81,12 @@ public class Main {
 //		
 //		String s = sb.toString();
 //		System.out.println(s.charAt(0));
-//		double[] newPoint = {0.0};
-//		KNearestNeighbour kNN = new KNearestNeighbour();
-//		kNN.kNearestNeighbour(menge1, newPoint);
+		double[] newPoint = {1,2};
+		double[][] mengePos = {{6,5}, {1,1}, {3,7}, {11,1}};
+		double[][] mengeNeg = {{-3,-2},{-12,-14},{-1,-2},{-9,-7}};
+
+		KNearestNeighbour kNN = new KNearestNeighbour();
+		kNN.kNearestNeighbour(mengePos,mengeNeg, newPoint);
 //		
 	}
 	
