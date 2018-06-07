@@ -60,33 +60,49 @@ public class Main {
 //		
 		
 		Perzeptron perzeptron = new Perzeptron();
-		perzeptron.perzeptronLernregel(menge1, menge2);
+//		perzeptron.perzeptronLernregel(menge1, menge2);
 //		perzeptron.perzeptronLernregel(menge1Test, menge2Test);
 		
-//		FileReader fr = null;
-//		StringBuffer sb = null;
-//		try
-//		{
-//		   String fileName="app1_data.data";
-//		   fr = new FileReader(fileName);
-//		   sb = new StringBuffer();
-//		   ArrayList<Double> lines = new ArrayList<Double>();
-//		   int ch;
-//		   while( (ch = fr.read()) != -1 )
-//		      sb.append((char)ch);
+		
+		//KNN File einlesen mit Daten
+		FileReader fr = null;
+		StringBuffer sb = null;
+		try
+		{
+		   String fileName="app1_data.data";
+		   fr = new FileReader(fileName);
+		   sb = new StringBuffer();
+		   ArrayList<Double> lines = new ArrayList<Double>();
+		   int ch;
+		   while( (ch = fr.read()) != -1 )
+		      sb.append((char)ch);
 //		      System.out.println(sb.toString());
-//		}catch(FileNotFoundException ex){			
-//		}finally{			
-//		}
-//		
-//		String s = sb.toString();
-//		System.out.println(s.charAt(0));
-		double[] newPoint = {1,2};
-		double[][] mengePos = {{6,5}, {1,1}, {3,7}, {11,1}};
-		double[][] mengeNeg = {{-3,-2},{-12,-14},{-1,-2},{-9,-7}};
+		}catch(FileNotFoundException ex){			
+		}finally{			
+		}
+		
+		String s = sb.toString();
+		String[] zeile = s.split("\\n");
+		String[] ziffer = null;
+		
+		double[][] menge = new double[zeile.length][16];
+		for( int i = 0; i < zeile.length; i++ ){
+			ziffer = new String[16];
+			ziffer = zeile[i].split(",");
+			for(int j = 0; j < ziffer.length; j++){
+				menge[i][j] = Double.parseDouble(ziffer[j]);
+			}		
+		}
 
-		KNearestNeighbour kNN = new KNearestNeighbour();
-		kNN.kNearestNeighbour(mengePos,mengeNeg, newPoint);
+
+//		double[] newPoint = {29.0, 2.0, 0.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 1.0, 0.0, 36.9, 37.4, 8100.0, 0.0, 0.0};
+		double[] newPoint = {26.0, 1.0, 0.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 1.0, 0.0, 37.9, 38.8, 23100.0, 0.0, 1.0};		
+
+		int k = 3;
+		KNN kNNbeta = new KNN();
+		kNNbeta.KNNAlg(menge, newPoint, k);
+
+		
 //		
 	}
 	
