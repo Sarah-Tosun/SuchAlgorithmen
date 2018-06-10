@@ -23,12 +23,11 @@ public class Main {
 //		
 //		int[][] ziel = {{1,2,3}, {4,5,6}, {7,8,0}};
 //		
+		//Perzeptron Zweidimensional
 //		double[][] menge1Test = {{0,1.8}, {2,0.6}};
 //		double[][] menge2Test = {{-1.2,1.4}, {0.4,-1}};
 
-//		double[][] menge1 = {{6,1,1}, {7,3,1}, {8,2,1}, {9,0,1}};
-//		double[][] menge2 = {{8,4,1}, {8,6,1}, {9,2,1}, {9,5,1}};
-		
+		//Perzeptron Dreidimensional
 		double[][] menge1 = {{6,1}, {7,3}, {8,2}, {9,0}};
 		double[][] menge2 = {{8,4}, {8,6}, {9,2}, {9,5}};
 		
@@ -60,7 +59,7 @@ public class Main {
 //		
 		
 		Perzeptron perzeptron = new Perzeptron();
-//		perzeptron.perzeptronLernregel(menge1, menge2);
+		perzeptron.perzeptronLernregel(menge1, menge2);
 //		perzeptron.perzeptronLernregel(menge1Test, menge2Test);
 		
 		
@@ -69,10 +68,11 @@ public class Main {
 		StringBuffer sb = null;
 		try
 		{
+			//app1_data.data oder
+			//app1_test.test
 		   String fileName="app1_data.data";
 		   fr = new FileReader(fileName);
 		   sb = new StringBuffer();
-		   ArrayList<Double> lines = new ArrayList<Double>();
 		   int ch;
 		   while( (ch = fr.read()) != -1 )
 		      sb.append((char)ch);
@@ -98,7 +98,8 @@ public class Main {
 //		double[] newPoint = {29.0, 2.0, 0.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 1.0, 0.0, 36.9, 37.4, 8100.0, 0.0, 0.0};
 		double[] newPoint = {26.0, 1.0, 0.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 1.0, 0.0, 37.9, 38.8, 23100.0, 0.0, 1.0};		
 
-		int k = 3;
+		//k beginnt bei 0, dh erste Stelle in der Liste wird ausgegeben
+		int k = 2;
 		KNN kNNbeta = new KNN();
 		kNNbeta.KNNAlg(menge, newPoint, k);
 

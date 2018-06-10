@@ -2,68 +2,53 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class Perzeptron {
+/**
+ * Perzeptron, linearer Klassifizierer
+ * aus einem zB Zweidimensinalen Raum einen Dreidimensionalen machen 
+ * einfach mit 1 erweitern, also auf die nächste Ebene/auf den nächsten Raum
+ * anheben/erweitern um linear klassifizieren zu können!
+ * 
+ * @author Sarah
+ *
+ */
 
-	public Perzeptron() {
-		// TODO Auto-generated constructor stub
-	}
+public class Perzeptron {
 
 	public void perzeptronLernregel(double[][] menge1, double[][] menge2) throws InterruptedException {
 		// w beliebiger Vektor reeller Zahlen
-		double[] w = {1,1,1};
+		double[] weight = {1,1,1};
 		//alle x korrekt klassifiziert
-		int count = 0;
+		int count = 1;
 		//Für Abbruch ArrayList mit den aktuellen Werten
 		List<Double> mapPlus;
 		List<Double> mapMinus;
+		
 		while(true){
-
-			double vekortWXMenge1 = 0;
-			double vekortWXMenge2 = 0;
 			mapPlus = new ArrayList<>();
 			mapMinus = new ArrayList<>();
-			
-			for(double[]x : menge1){				
-//				double vekortWX1 = (w[0]*x[0])+(w[1]*x[1]);
-				double vekortWX1 = (w[0]*x[0])+(w[1]*x[1])+(w[2]*1);
-				// für abbruchsbedingung
-				vekortWXMenge1 = vekortWX1;
-				mapPlus.add(vekortWXMenge1);
-				if(vekortWX1 <= 0){
-					//Perzeptron klassifizieren, addieren
-					w[0] = w[0]+x[0];
-					//runden
-					w[0] = Math.round(100.0 * w[0]) / 100.0;
-					
-					w[1] = w[1]+x[1];
-					w[1] = Math.round(100.0 * w[1]) / 100.0;
-					
-					w[2] = w[2]+1;
-					w[2] = Math.round(100.0 * w[2]) / 100.0;
+			for(double[] x : menge1){	
+				double vek = 0;
+				vek = getVektorWert(weight, x);
+
+				// für Abbruchsbedingung
+				mapPlus.add(vek);
+				if(vek <= 0){		
+					//Klassifizieren und Ausgabe der Gewichte
+					klassifizierePerzeptron(weight, x, count, "+");
 					count++;
-					System.out.println(" Step"+count+ "w+: "+ w[0] +", "+ w[1]+", "+ w[2]);
 				}
 			}			
 			
-			for(double[]x : menge2){				
-//				double vekortWX2 = (w[0]*x[0])+(w[1]*x[1]);
-				double vekortWX2 = (w[0]*x[0])+(w[1]*x[1])+(w[2]*1);
-				// für abbruchsbedingung
-				vekortWXMenge2 = vekortWX2;
-				mapMinus.add(vekortWXMenge2);
-				if(vekortWX2 > 0){
-					//Perzeptron klassifizieren, abziehen
-					w[0] = w[0]-x[0];
-					w[0] = Math.round(100.0 * w[0]) / 100.0;
-					
-					w[1] = w[1]-x[1];
-					w[1] = Math.round(100.0 * w[1]) / 100.0;
-					
-					w[2] = w[2]-1;
-					w[2] = Math.round(100.0 * w[2]) / 100.0;
-					count++;
-					System.out.println(" Step"+count+ "w+: "+ w[0] +", "+ w[1]+", "+ w[2]);
+			for(double[]x : menge2){	
+				double vek = 0;
+				vek = getVektorWert(weight, x);
 
+				// für abbruchsbedingung
+				mapMinus.add(vek);
+				if(vek > 0){
+					//Klassifizieren und Ausgabe der Gewichte
+					klassifizierePerzeptron(weight, x, count, "-");
+					count++;
 				}
 			}
 			
@@ -94,25 +79,54 @@ public class Perzeptron {
 			
 			if(allPlus == true && allMinus == true){
 				//Alle richtig klassifiziert
-				for(Double m : mapPlus){
-					System.out.print("Alle richtig poisitv: "+m);
-					System.out.println("");
-				}
-				for(Double m : mapMinus){
-					m = Math.round(100.0 * m) / 100.0;
-					System.out.print("Alle richtig negativ: "+m);
-					System.out.println("");
-				}
 				System.out.println("ENDE__________________________________________");
 				System.out.println("");
 				break;
-			}
-			
-			
-//			Thread.sleep(100);
-				
+			}				
+//			Thread.sleep(100);				
+		}		
+	}	
+	
+	//Gewichtsvektor erste Stelle mit Punkt erster Stelle multiplizieren, ebenso alle Stellen
+	//und diese dann addieren und zurückgeben
+	private double getVektorWert(double[] weight, double[] x) {
+		double vek = 0;
+		//Auf weight.length-1 setzten für Mehrdimensionen
+		for(int i = 0; i < weight.length-1;i++){
+			vek = vek + (weight[i]*x[i]);
 		}
-		
+//		Wegen Mehrdimensionen, auskommentieren bei Zweidimensionalem
+		vek = vek + (weight[weight.length-1]*1);
+		return vek;
 	}
 
+
+	private void klassifizierePerzeptron(double[] weight, double[] x, int count, String addition_subtraktion) {
+		//Perzeptron klassifizieren, addieren
+		String plus = "+";
+		//Auf weight.length-1 setzten für Mehrdimensionen
+		for(int i = 0; i < weight.length-1; i++){
+			if(addition_subtraktion == plus){
+				weight[i] = weight[i] + x[i];
+			}else{
+				weight[i] = weight[i] - x[i];
+			}
+			weight[i] = Math.round(100.0 * weight[i]) / 100.0;
+		}
+		// Wegen Mehrdimensionen, sonst auskommentieren bei Zweidimensional
+		if(addition_subtraktion == plus){
+			weight[weight.length-1] = weight[weight.length-1]+1;
+		}else{
+			weight[weight.length-1] = weight[weight.length-1]-1;
+		}			
+		weight[weight.length-1] = Math.round(100.0 * weight[weight.length-1]) / 100.0;
+		
+		//Ausgabe der Gewichte
+		System.out.print("Step "+count+ " w + :  ");
+		for(int j = 0; j < weight.length; j++){
+			System.out.print(weight[j] +", ");
+		}
+		System.out.println(" ");
+
+	}
 }

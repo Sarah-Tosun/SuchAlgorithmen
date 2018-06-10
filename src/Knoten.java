@@ -1,4 +1,9 @@
-
+/**
+ * Knoten
+ * Verwendung: Iterativ Deepening
+ * @author Sarah
+ *
+ */
 public class Knoten {
 	
 	private int[][] knoten;

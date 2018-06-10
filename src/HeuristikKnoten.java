@@ -1,4 +1,8 @@
-
+/**
+ * HeuristikKnoten
+ * @author Sarah
+ *
+ */
 public class HeuristikKnoten implements Comparable<HeuristikKnoten> {
 	
 	@Override

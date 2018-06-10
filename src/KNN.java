@@ -3,6 +3,13 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+/**
+ * K-NearestNeighbour Algorithmus
+ * Klassifiziert neuen Punkt zur Klasse mit den k nächsten Nachbarn
+ * 
+ * @author Sarah
+ *
+ */
 public class KNN {
 	
 	public void KNNAlg(double[][] point, double[] newPoint, int k) {
