@@ -127,6 +127,5 @@ public class Perzeptron {
 			System.out.print(weight[j] +", ");
 		}
 		System.out.println(" ");
-
 	}
 }
