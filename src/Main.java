@@ -1,11 +1,6 @@
-import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.StringTokenizer;
 
 public class Main {
 	
@@ -96,10 +91,10 @@ public class Main {
 
 
 //		double[] newPoint = {29.0, 2.0, 0.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 1.0, 0.0, 36.9, 37.4, 8100.0, 0.0, 0.0};
-		double[] newPoint = {26.0, 1.0, 0.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 1.0, 0.0, 37.9, 38.8, 23100.0, 0.0, 1.0};		
+		double[] newPoint = {12.0, 2.0, 0, 1.0, 1.0, 0, 0, 0, 1.0, 1.0, 0, 36.3, 36.8, 22000.0, 0, 0};		
 
-		//k beginnt bei 0, dh erste Stelle in der Liste wird ausgegeben
-		int k = 2;
+		//k nächste Nachbarn
+		int k = 3;
 		KNN kNNbeta = new KNN();
 		kNNbeta.KNNAlg(menge, newPoint, k);
 

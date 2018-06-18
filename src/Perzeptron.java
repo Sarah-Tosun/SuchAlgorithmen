@@ -27,12 +27,12 @@ public class Perzeptron {
 			mapPlus = new ArrayList<>();
 			mapMinus = new ArrayList<>();
 			for(double[] x : menge1){	
-				double vek = 0;
-				vek = getVektorWert(weight, x);
+				double wert = 0;
+				wert = getVektorWert(weight, x);
 
 				// für Abbruchsbedingung
-				mapPlus.add(vek);
-				if(vek <= 0){		
+				mapPlus.add(wert);
+				if(wert <= 0){		
 					//Klassifizieren und Ausgabe der Gewichte
 					klassifizierePerzeptron(weight, x, count, "+");
 					count++;
@@ -40,18 +40,18 @@ public class Perzeptron {
 			}			
 			
 			for(double[]x : menge2){	
-				double vek = 0;
-				vek = getVektorWert(weight, x);
+				double wert = 0;
+				wert = getVektorWert(weight, x);
 
 				// für abbruchsbedingung
-				mapMinus.add(vek);
-				if(vek > 0){
+				mapMinus.add(wert);
+				if(wert > 0){
 					//Klassifizieren und Ausgabe der Gewichte
 					klassifizierePerzeptron(weight, x, count, "-");
 					count++;
 				}
 			}
-			
+//			count++;
 			//Abbruchbedingung 
 			int plus = 0;
 			boolean allPlus = false;
@@ -90,14 +90,14 @@ public class Perzeptron {
 	//Gewichtsvektor erste Stelle mit Punkt erster Stelle multiplizieren, ebenso alle Stellen
 	//und diese dann addieren und zurückgeben
 	private double getVektorWert(double[] weight, double[] x) {
-		double vek = 0;
+		double wert = 0;
 		//Auf weight.length-1 setzten für Mehrdimensionen
 		for(int i = 0; i < weight.length-1;i++){
-			vek = vek + (weight[i]*x[i]);
+			wert = wert + (weight[i]*x[i]);
 		}
 //		Wegen Mehrdimensionen, auskommentieren bei Zweidimensionalem
-		vek = vek + (weight[weight.length-1]*1);
-		return vek;
+		wert = wert + (weight[weight.length-1]*1);
+		return wert;
 	}
 
 

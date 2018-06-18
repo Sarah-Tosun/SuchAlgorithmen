@@ -31,19 +31,53 @@ public class KNN {
 			distance = Math.round(100.0 * distance) / 100.0;
 			resultList.add(new Result(distance, koordinate.index, koordinate.point));
 		}
-		
+
 		Collections.sort(resultList, new DistComparator());
+		double distanceNull = 0;
+		double distanceEins = 0;
+		int countNull = 0;
+		int countEins = 0;
 		
-		//k Schleife
-		for(int j = 0; j <= k; j++){
+		//Soviele Results ausgeben wir hoch der Wert k ist
+		for(int j = 0; j < k; j++){
 			System.out.print(resultList.get(j).dist+", "+ resultList.get(j).index+"  [");		
 			for(int i = 0; i < resultList.get(j).point.length; i++){
 				System.out.print(resultList.get(j).point[i]+", ");
+				if(i == resultList.get(j).point.length-1){
+					if(resultList.get(j).point[i] == 0){
+						distanceNull += resultList.get(j).dist;
+						countNull++;
+					}else{
+						distanceEins += resultList.get(j).dist;
+						countEins++;
+					}
+						
+				}
 			}
 			System.out.print("]");
+			System.out.println(" ");
+						
 		}
+		//Klassenbestimmung, bei gleicher Klassenanzahl entscheidet die 
+		//kleinere Gesamtdistanz
+		System.out.println(" ");
+		if(countNull < countEins || distanceNull > distanceEins){
+			System.out.printf("Klasse:  '1':   ("+countEins+" Punkte dieser Klasse)");
+		}else{
+			System.out.printf("Klasse:  '0':   ("+countNull+" Punkte dieser Klasse)");
+		}
+		System.out.println("");
+		System.out.println("");
+		System.out.println("ENDE__________________________________________");
+		System.out.println("");
+				
 	}
 	
+	private void print(int i, int j) {
+		// TODO Auto-generated method stub
+		
+	}
+
 	public class Points{
 		double[] point;
 		int index;
@@ -68,7 +102,7 @@ public class KNN {
 	
 	class DistComparator implements Comparator<Result> {
 
-		 // Kleinster Value aufsteigend geordnet
+		 // Kleinster Value aufsteigend geordnet nach Distanz
 		 public int compare(Result a, Result b) {
 			 if (a.dist < b.dist){
 				 return -1;				 
