@@ -21,7 +21,7 @@ public class KNN {
 		for(int i = 0; i < point.length; i++){
 			pointList.add(new Points(point[i], i));
 		}
-		
+		//Distanz aller Stellen aufaddieren, eponieren und die Wurzel ziehen
 		for(Points koordinate : pointList){
 			double dist = 0.0;
 			for(int j = 0; j < koordinate.point.length; j++){
@@ -31,18 +31,21 @@ public class KNN {
 			distance = Math.round(100.0 * distance) / 100.0;
 			resultList.add(new Result(distance, koordinate.index, koordinate.point));
 		}
-
+		//Punkte sortieren nach Distanz
 		Collections.sort(resultList, new DistComparator());
+		
 		double distanceNull = 0;
 		double distanceEins = 0;
 		int countNull = 0;
 		int countEins = 0;
 		
-		//Soviele Results ausgeben wir hoch der Wert k ist
+		//Soviele Results ausgeben wie hoch der Wert k ist
 		for(int j = 0; j < k; j++){
 			System.out.print(resultList.get(j).dist+", "+ resultList.get(j).index+"  [");		
 			for(int i = 0; i < resultList.get(j).point.length; i++){
 				System.out.print(resultList.get(j).point[i]+", ");
+				//An letzter Stelle prüfen in welcher Klasse sich die nähsten Punkte 
+				//befinden
 				if(i == resultList.get(j).point.length-1){
 					if(resultList.get(j).point[i] == 0){
 						distanceNull += resultList.get(j).dist;

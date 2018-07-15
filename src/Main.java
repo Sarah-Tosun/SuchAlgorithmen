@@ -54,7 +54,7 @@ public class Main {
 //		
 		
 		Perzeptron perzeptron = new Perzeptron();
-		perzeptron.perzeptronLernregel(menge1, menge2);
+//		perzeptron.perzeptronLernregel(menge1, menge2);
 //		perzeptron.perzeptronLernregel(menge1Test, menge2Test);
 		
 		
@@ -89,8 +89,8 @@ public class Main {
 			}		
 		}
 
-
-//		double[] newPoint = {29.0, 2.0, 0.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 1.0, 0.0, 36.9, 37.4, 8100.0, 0.0, 0.0};
+		//Testdata
+//		double[] newPoint = {30.0, 1.0, 0.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 1.0, 0.0, 37.5, 38.3, 17800.0, 0.0, 0};
 		double[] newPoint = {12.0, 2.0, 0, 1.0, 1.0, 0, 0, 0, 1.0, 1.0, 0, 36.3, 36.8, 22000.0, 0, 0};		
 
 		//k nächste Nachbarn
